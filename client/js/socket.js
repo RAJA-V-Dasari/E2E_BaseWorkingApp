@@ -14,6 +14,7 @@ socket.on("gameStateUpdate", (gameState) => {
   state.round = gameState.round;
   state.phase = gameState.phase;
   state.floor1 = gameState.floor1;
+  state.floor2 = gameState.floor2;
 });
 
 socket.on("error", (msg) => {

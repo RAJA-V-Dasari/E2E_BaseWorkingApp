@@ -32,5 +32,9 @@ module.exports = (io) => {
     socket.on("memoryClick", (value) => {
       game.handleMemoryClick(value);
     });
+
+    socket.on("floor2Submit", (answer) => {
+      game.handleFloor2Submit(socket.id, answer);
+    });
   });
 };

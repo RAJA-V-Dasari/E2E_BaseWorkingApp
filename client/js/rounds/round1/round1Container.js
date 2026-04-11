@@ -9,7 +9,8 @@ Vue.component("round1-container", {
       </div>
 
       <div v-if="phase === 'floor2'">
-        <h3>Floor 2 Coming Soon...</h3>
+        <past-logs v-if="role === 'past'"></past-logs>
+        <future-logs v-if="role === 'future'"></future-logs>
       </div>
     </div>
   `,

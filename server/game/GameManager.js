@@ -1,5 +1,6 @@
 const GameState = require("./GameState");
 const Floor1 = require("./round1/Floor1_MemoryGrid");
+const Floor2 = require("./round1/Floor2_LogPuzzle");
 
 class GameManager {
   constructor(io) {
@@ -10,6 +11,8 @@ class GameManager {
     this.floor1 = new Floor1(() => {
       this.broadcast(); 
     });
+
+    this.floor2 = null;
 
     this.state.phase = "floor1";
   }
@@ -52,10 +55,23 @@ class GameManager {
     }
 
     if (result.status === "complete") {
+      this.floor2 = new Floor2();
       this.state.phase = "floor2";
     }
 
     this.broadcast(); 
+  }
+
+  handleFloor2Submit(socketId, answer) {
+    if (this.state.players.past !== socketId) return;
+
+    const result = this.floor2.submit(answer);
+
+    if (result.status === "correct") {
+      this.state.phase = "floor3";
+    }
+
+    this.broadcast();
   }
 
   getState() {
@@ -63,7 +79,8 @@ class GameManager {
       players: this.state.players,
       round: this.state.round,
       phase: this.state.phase,
-      floor1: this.floor1.getState()
+      floor1: this.floor1.getState(),
+      floor2: this.floor2 ? this.floor2.getState() : null
     };
   }
 }

@@ -8,5 +8,6 @@ const state = Vue.observable({
   round: 1,
   phase: null,
 
-  floor1: null
+  floor1: null,
+  floor2: null
 });
