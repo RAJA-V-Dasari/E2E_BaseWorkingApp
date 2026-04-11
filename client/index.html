@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time-Link Challenge</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+
+<body>
+
+<div id="app">
+    <lobby-screen v-if="screen === 'lobby'"></lobby-screen>
+    <game-screen v-if="screen === 'game'"></game-screen>
+    <end-screen v-if="screen === 'end'"></end-screen>
+</div>
+
+<script src="http://10.114.78.46:3000/socket.io/socket.io.js"></script>
+
+<script src="js/state.js"></script>
+<script src="js/socket.js"></script>
+
+<script src="js/screens/lobby.js"></script>
+<script src="js/screens/game.js"></script>
+<script src="js/rounds/round1/round1Container.js"></script>
+<script src="js/rounds/round1/floor1/pastMemory.js"></script>
+<script src="js/rounds/round1/floor1/futureMemory.js"></script>
+
+
+<script src="js/screens/end.js"></script>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
