@@ -8,7 +8,10 @@ class Floor1_MemoryGrid {
   }
 
   reset(onUpdate) {
-    this.size = Math.floor(Math.random() * 3) + 8;
+    const min = config.FLOOR1_MIN_SIZE;
+    const max = config.FLOOR1_MAX_SIZE;
+
+    this.size = Math.floor(Math.random() * (max - min + 1)) + min;
     this.tiles = this.shuffle([...Array(this.size).keys()].map(x => x + 1));
 
     this.currentIndex = 0;

@@ -36,5 +36,13 @@ module.exports = (io) => {
     socket.on("floor2Submit", (answer) => {
       game.handleFloor2Submit(socket.id, answer);
     });
+
+    socket.on("floor3Submit", (guess) => {
+      game.handleFloor3Submit(socket.id, guess);
+    });
+
+    socket.on("floor3Reset", () => {
+      game.handleFloor3Reset(socket.id);
+    });
   });
 };

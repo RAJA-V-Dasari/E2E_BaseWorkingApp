@@ -9,5 +9,6 @@ const state = Vue.observable({
   phase: null,
 
   floor1: null,
-  floor2: null
+  floor2: null,
+  floor3: null
 });

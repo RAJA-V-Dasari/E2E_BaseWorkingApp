@@ -7,6 +7,7 @@ class GameState {
 
     this.round = 1;
     this.phase = null;
+    this.screen = "game"; // default
   }
 }
 

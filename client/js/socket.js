@@ -13,8 +13,10 @@ socket.on("gameStateUpdate", (gameState) => {
   state.players = gameState.players;
   state.round = gameState.round;
   state.phase = gameState.phase;
+  state.screen = gameState.screen || "game";
   state.floor1 = gameState.floor1;
   state.floor2 = gameState.floor2;
+  state.floor3 = gameState.floor3;
 });
 
 socket.on("error", (msg) => {

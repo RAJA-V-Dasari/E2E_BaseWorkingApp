@@ -12,6 +12,12 @@ Vue.component("round1-container", {
         <past-logs v-if="role === 'past'"></past-logs>
         <future-logs v-if="role === 'future'"></future-logs>
       </div>
+
+      <div v-if="phase === 'floor3'">
+        <past-wordle v-if="role === 'past'"></past-wordle>
+        <future-wordle v-if="role === 'future'"></future-wordle>
+      </div>
+
     </div>
   `,
   computed: {
