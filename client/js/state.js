@@ -10,5 +10,7 @@ const state = Vue.observable({
 
   floor1: null,
   floor2: null,
-  floor3: null
+  floor3: null,
+
+  round2: null
 });

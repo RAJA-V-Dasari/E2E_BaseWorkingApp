@@ -14,8 +14,11 @@ class Floor3_NumberWordle {
       const unique = new Set(code);
       if (unique.size >= 2) {
         this.code = code.join("");
+        console.log(this.code); //DEBUG RREMOVE IN FINAL DEPLOYMENT
         break;
       }
+
+      console.log(this.code);//DEBUG REMOVE IN FINAL DEPLOYMENT
     }
   }
 

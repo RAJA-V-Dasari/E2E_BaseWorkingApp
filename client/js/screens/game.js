@@ -8,7 +8,8 @@ Vue.component("game-screen", {
       <p>Future: {{ players.future }}</p>
 
       <div>
-      <round1-container v-if="round === 1"></round1-container>
+        <round1-container v-if="round === 1"></round1-container>
+        <round2-container v-if="round === 2"></round2-container>
       </div>
     </div>
   `,

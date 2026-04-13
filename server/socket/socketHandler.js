@@ -44,5 +44,17 @@ module.exports = (io) => {
     socket.on("floor3Reset", () => {
       game.handleFloor3Reset(socket.id);
     });
+
+    socket.on("round2Move", (dir) => {
+      game.handleRound2Move(dir);
+    });
+
+    socket.on("round2Shoot", (dir) => {
+      game.handleRound2Shoot(dir);
+    });
+
+    socket.on("round2Respawn", () => {
+      game.handleRound2Respawn(socket.id);
+    });
   });
 };

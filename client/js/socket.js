@@ -17,6 +17,7 @@ socket.on("gameStateUpdate", (gameState) => {
   state.floor1 = gameState.floor1;
   state.floor2 = gameState.floor2;
   state.floor3 = gameState.floor3;
+  state.round2 = gameState.round2;
 });
 
 socket.on("error", (msg) => {

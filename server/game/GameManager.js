@@ -3,6 +3,8 @@ const Floor1 = require("./round1/Floor1_MemoryGrid");
 const Floor2 = require("./round1/Floor2_LogPuzzle");
 const Floor3 = require("./round1/Floor3_NumberWordle");
 
+const Round2Engine = require("./round2/Round2Engine");
+
 class GameManager {
   constructor(io) {
     this.io = io;
@@ -15,12 +17,16 @@ class GameManager {
 
     this.floor2 = null;
     this.floor3 = null;
-
+    this.round2 = null;
     this.state.phase = "floor1";
   }
 
   broadcast() {
-    this.io.emit("gameStateUpdate", this.getState());
+    this.io.sockets.sockets.forEach((socket) => {
+      const role = this.getRole(socket.id);
+
+      socket.emit("gameStateUpdate", this.getState(role));
+    });
   }
 
   addPlayer(socketId, role) {
@@ -89,8 +95,9 @@ class GameManager {
     }
 
     if (result.status === "correct") {
-      this.state.phase = null;
-      this.state.screen = "end";
+      this.round2 = new Round2Engine(() => this.broadcast());
+      this.state.round = 2;
+      this.state.phase = "round2";
     }
 
     if (result.status === "wrong") {
@@ -114,7 +121,32 @@ class GameManager {
     this.broadcast();
   }
 
-  getState() {
+  handleRound2Move(dir) {
+    this.round2.move(dir);
+    this.broadcast();
+  }
+
+  handleRound2Shoot(dir) {
+    this.round2.shoot(dir);
+    this.broadcast();
+  }
+
+  getRole(socketId) {
+    if (this.state.players.past === socketId) return "past";
+    if (this.state.players.future === socketId) return "future";
+  }
+
+  handleRound2Respawn(socketId) {
+    if (this.state.players.future !== socketId) return;
+
+    if (this.round2.player.alive) return;      
+    if (this.round2.player.lives <= 0) return;   
+
+    this.round2.resetPlayer();
+    this.broadcast();
+  }
+
+  getState(role) {
     return {
       players: this.state.players,
       round: this.state.round,
@@ -123,6 +155,10 @@ class GameManager {
       floor1: this.floor1.getState(),
       floor2: this.floor2 ? this.floor2.getState() : null,
       floor3: this.floor3 ? this.floor3.getState() : null,
+      round2: this.round2
+        ? this.round2.getState(role)
+        : null,
+      
     };
   }
 }
